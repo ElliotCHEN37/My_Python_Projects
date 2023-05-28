@@ -24,7 +24,7 @@ def get_file_size(url: str, raise_error: bool = False) -> int:
     file_size = response.headers.get('Content-Length')
     if file_size is None:
         if raise_error is True:
-            raise ValueError('該文件不支援多線程下載！')
+            raise ValueError('該文件不支援多線程下載！/ This file does not support multi-threaded download! ')
         return file_size
     return int(file_size)
 
@@ -54,7 +54,7 @@ def download(url: str, file_name: str, retry_times: int = 3, each_size=16*MB) ->
 
     parts = split(0, file_size, each_size)
     print(f'分塊數：{len(parts)}')
-    bar = tqdm(total=file_size, desc=f'下載 {file_name} 中 | 進度')
+    bar = tqdm(total=file_size, desc=f'下載 {file_name} 中/Downloading {file_name} | 進度/progress rate')
     for part in parts:
         start, end = part
         start_download(start, end)
@@ -64,6 +64,7 @@ def download(url: str, file_name: str, retry_times: int = 3, each_size=16*MB) ->
 
 
 if "__main__" == __name__:
-    url = input("請輸入下載鏈接：")
-    file_name = input("請輸入檔案名+副檔名：")
+    print(f"歡迎使用Python Downloader Multi-threaded Edition!/Thank you for choosing Python Downloader Multi-threaded Edition!")
+    url = input("請輸入下載鏈接/Please paste the download link here：")
+    file_name = input("請輸入完整檔案名/Please type your file name：")
     download(url, file_name)
